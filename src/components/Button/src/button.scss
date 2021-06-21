@@ -1,0 +1,13 @@
+@charset "UTF-8";
+@import "common/var";
+@import "mixins/button";
+@import "mixins/mixins";
+@import "mixins/utils";
+
+@include b(button) {
+  display: inline-block;
+  line-height: 1;
+  min-height: $--input-height;
+  white-space: nowrap;
+  cursor: pointer;
+}
