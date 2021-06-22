@@ -1,46 +1,16 @@
 s`2
 <template>
   <teleport to="body" :disable="!appendToBody">
-    <transition
-      name="dialog-fade"
-      @after-enter="afterEnter"
-      @after-leave="afterLeave"
-      @before-leave="beforeLeave"
-    >
-      <el-overlay
-        v-show="visible"
-        :mask="modal"
-        :overlay-class="modalClass"
-        :z-index="zIndex"
-        @click="onModalClick"
-      >
-        <div
-          ref="dialogRef"
-          :class="[
-            'el-dialog',
-            {
-              'is-fullscreen': fullscreen,
-              'el-dialog--center': center,
-            },
-            customClass,
-          ]"
-          aria-modal="true"
-          role="dialog"
-          :aria-label="title || dialog"
-        >
+    <transition name="dialog-fade">
+      <el-overlay v-show="visible">
+        <div ref="dialogRef" :class="['el-dialog']">
           <div class="el-dialog__header">
             <slot name="title">
               <span class="el-dialog__title">
                 {{ title }}
               </span>
             </slot>
-            <button
-              v-if="showClose"
-              aria-labe="close"
-              class="el-dialog__headerbtn"
-              type="button"
-              @click="handleClose"
-            >
+            <button v-if="showClose" type="button" @click="handleClose">
               <i class="el-dialog__close el-icon el-icon-close"></i>
             </button>
           </div>
@@ -59,22 +29,15 @@ s`2
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, PropType, SetupContext } from "vue";
 
-import Overlay from "@/components/overlay/index";
-import {
-  default as useDialog,
-  CLOSE_EVENT,
-  CLOSED_EVENT,
-  OPENT_EVENT,
-  UPDATE_MODEL_EVENT,
-} from "./useDialog";
+import { Overlay } from "../../overlay/index";
+
+import { default as useDialog } from "./useDialog";
 
 export default defineComponent({
   name: "Dialog",
-  component: {
-    "el-overlay": Overlay,
-  },
+  component: {},
   directives: {},
   props: {
     appendToBody: {
@@ -109,7 +72,7 @@ export default defineComponent({
       default: true,
     },
     lockScroll: {
-      type: Boolan,
+      type: Boolean,
       default: true,
     },
     modal: {
@@ -141,17 +104,13 @@ export default defineComponent({
       required: true,
     },
     modalClass: String,
-    width: {
-      type: [String, Number],
-      default: "50%",
-      validator: isValidWidthUnit,
-    },
     zIndex: {
       type: Number,
     },
   },
   emits: [],
   setup(props, ctx) {
+    console.log(1);
     const dialogRef = ref<HTMLElement>(null);
     return {
       ...useDialog(props, ctx as SetupContext, dialogRef),

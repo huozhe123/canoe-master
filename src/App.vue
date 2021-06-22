@@ -3,6 +3,8 @@
   <!-- <c-button :disabled="false" :circle="true" :size="`large`">点我</c-button> -->
   <!-- <demo :name="`demo`" :age="`18`"></demo> -->
   <Hello msg="123444" @change="helloClick"></Hello>
+  <hr />
+  <Dialog ref="dialog" v-model="visible">123</Dialog>
 </template>
 
 <script lang="ts">
@@ -16,15 +18,17 @@ import {
   defineComponent,
   defineAsyncComponent,
   getCurrentInstance,
+  onMounted,
 } from "vue";
-import Hello from "@components/Demo/hello.vue";
-import Dialog from "@components/Dialog/index.ts";
+import Hello from "./Demo/hello.vue";
+import Dialog from "./Dialog/index";
 // import Dialog from '@/components/Dialog/index.vts'
 
 export default defineComponent({
   name: "App",
   components: {
     Hello: Hello,
+    Dialog,
   },
   methods: {
     resolve() {
@@ -34,14 +38,20 @@ export default defineComponent({
   setup() {
     const counter = ref(0);
     const instance = getCurrentInstance();
-    console.log(instance);
+    const visible = ref(false);
+    const dialog = ref(null);
 
     const helloClick = (data) => {
-      console.log("change", data);
+      visible.value = true;
     };
+
+    onMounted(() => {
+      console.log("ref", dialog);
+    });
     return {
       counter,
       helloClick,
+      visible,
     };
   },
 });

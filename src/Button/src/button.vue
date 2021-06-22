@@ -31,8 +31,6 @@ import {
   toRef,
 } from "vue";
 import { PropType } from "vue";
-// import {isValidComponentSize} from 'utils/validators'
-import { ComponentSize } from "../../../utils/types";
 
 type ButtonType =
   | "primary"
