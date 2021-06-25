@@ -2,7 +2,7 @@ s`2
 <template>
   <teleport to="body" :disable="!appendToBody">
     <transition name="dialog-fade">
-      <el-overlay v-show="visible">
+      <Overlay v-show="rendered">
         <div ref="dialogRef" :class="['el-dialog']">
           <div class="el-dialog__header">
             <slot name="title">
@@ -23,7 +23,7 @@ s`2
             <slot name="footer"></slot>
           </div>
         </div>
-      </el-overlay>
+      </Overlay>
     </transition>
   </teleport>
 </template>
@@ -31,13 +31,15 @@ s`2
 <script lang="ts">
 import { defineComponent, ref, PropType, SetupContext } from "vue";
 
-import { Overlay } from "../../overlay/index";
+import Overlay from "../../overlay/src/index.vue";
 
 import { default as useDialog } from "./useDialog";
 
 export default defineComponent({
   name: "Dialog",
-  component: {},
+  components: {
+    Overlay: Overlay,
+  },
   directives: {},
   props: {
     appendToBody: {
