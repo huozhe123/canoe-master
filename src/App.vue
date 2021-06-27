@@ -1,10 +1,10 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <!-- <c-button :disabled="false" :circle="true" :size="`large`">点我</c-button> -->
-  <!-- <demo :name="`demo`" :age="`18`"></demo> -->
   <Hello msg="123444" @change="helloClick"></Hello>
   <hr />
-  <Dialog ref="dialog" v-model="visible">123</Dialog>
+  <el-button type="prmary" @click="handleOpenDialog">点我打开dialog</el-button>
+  <Dialog ref="dialog" v-model="visible" :before-close="handleBeforeClose"
+    >123</Dialog
+  >
 </template>
 
 <script lang="ts">
@@ -22,6 +22,7 @@ import {
 } from "vue";
 import Hello from "./Demo/hello.vue";
 import Dialog from "./Dialog/index";
+import Button from "./Button/src/button.vue";
 // import Dialog from '@/components/Dialog/index.vts'
 
 export default defineComponent({
@@ -29,6 +30,7 @@ export default defineComponent({
   components: {
     Hello: Hello,
     Dialog,
+    ElButton: Button,
   },
   methods: {
     resolve() {
@@ -48,10 +50,19 @@ export default defineComponent({
     onMounted(() => {
       console.log("ref", dialog);
     });
+    const handleOpenDialog = () => {
+      visible.value = true;
+    };
+    const handleBeforeClose = (fn) => {
+      visible.value = false;
+      fn();
+    };
     return {
       counter,
       helloClick,
       visible,
+      handleOpenDialog,
+      handleBeforeClose,
     };
   },
 });

@@ -15,12 +15,18 @@ export default defineComponent({
       type: Number,
     },
   },
-  emits: ["click"],
-  setup(props, { slots, emit }) {
+  emits: ["click1"],
+  setup(props, context) {
     let mousedownTarget = false;
     let mouseupTarget = false;
+    const onMaskClick = (e: MouseEvent) => {
+      if (mousedownTarget && mouseupTarget) {
+        context.emit("click1", e);
+      }
+      mousedownTarget = mouseupTarget = false;
+    };
     return () => {
-      return h(
+      return createVNode(
         "div",
         {
           style: {
@@ -32,8 +38,19 @@ export default defineComponent({
             left: "0px",
             backgroundColor: "rgba(0, 0, 0, 0.5)",
           },
+          onClick: onMaskClick,
+          onMousedown: (e: MouseEvent) => {
+            if (props.mask) {
+              mousedownTarget = e.target === e.currentTarget;
+            }
+          },
+          onMouseup: (e: MouseEvent) => {
+            if (props.mask) {
+              mouseupTarget = e.target === e.currentTarget;
+            }
+          },
         },
-        [renderSlot(slots, "default")]
+        [renderSlot(context.slots, "default")]
       );
     };
   },

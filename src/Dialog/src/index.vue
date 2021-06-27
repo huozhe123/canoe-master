@@ -2,17 +2,17 @@ s`2
 <template>
   <teleport to="body" :disable="!appendToBody">
     <transition name="dialog-fade">
-      <Overlay v-show="rendered">
-        <div ref="dialogRef" :class="['el-dialog']">
+      <Overlay v-show="rendered" @click1="onModalClick">
+        <div ref="dialogRef" :class="['el-dialog']" :style="style">
           <div class="el-dialog__header">
             <slot name="title">
               <span class="el-dialog__title">
                 {{ title }}
               </span>
             </slot>
-            <button v-if="showClose" type="button" @click="handleClose">
+            <!-- <button v-if="showClose" type="button" @click="handleClose">
               <i class="el-dialog__close el-icon el-icon-close"></i>
-            </button>
+            </button> -->
           </div>
           <template v-if="rendered">
             <div class="el-dialog__body">
@@ -35,6 +35,8 @@ import Overlay from "../../overlay/src/index.vue";
 
 import { default as useDialog } from "./useDialog";
 
+import { isValidWidthUnit } from "../../utils/validators";
+
 export default defineComponent({
   name: "Dialog",
   components: {
@@ -47,7 +49,7 @@ export default defineComponent({
       default: false,
     },
     beforeClose: {
-      type: Function as PropType<(...args: any[]) => unknown>,
+      type: Function,
     },
     destoryOnClose: {
       type: Boolean,
@@ -63,7 +65,7 @@ export default defineComponent({
     },
     closeOnClickModal: {
       type: Boolean,
-      default: "",
+      default: true,
     },
     closeOnPressEscape: {
       type: Boolean,
@@ -71,7 +73,7 @@ export default defineComponent({
     },
     fullscreen: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     lockScroll: {
       type: Boolean,
@@ -109,6 +111,11 @@ export default defineComponent({
     zIndex: {
       type: Number,
     },
+    width: {
+      type: [String, Number],
+      default: "50%",
+      validator: isValidWidthUnit,
+    },
   },
   emits: [],
   setup(props, ctx) {
@@ -122,4 +129,10 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.el-dialog {
+  background: #ffffff;
+  width: 50%;
+  margin: 0 auto 50px;
+}
+</style>

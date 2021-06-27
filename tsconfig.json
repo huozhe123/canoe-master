@@ -17,6 +17,6 @@
     "types": ["jest", "testing-library__jest-dom"],
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": ["src"],
+  "include": ["/"],
   "exclude": ["node_modules"]
 }

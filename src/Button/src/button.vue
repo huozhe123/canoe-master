@@ -1,6 +1,6 @@
 <template>
   <button
-    classs="el-button"
+    class="el-button"
     :class="classes"
     :type="nativeType"
     :disabled="buttonDisabled"
@@ -95,7 +95,7 @@ export default defineComponent({
 const useButtonSize = (size: Ref) => {
   return computed(() => {
     // TODO 此处可用防御式编程
-    return size.value;
+    return "large";
   });
 };
 
@@ -128,10 +128,12 @@ const useClasses = ({ props, size, disabled }) => {
   line-height: 12px;
   white-space: npwrap;
   cursor: pointer;
-  background: blue;
+  background: #409eff;
   border: none;
   color: #ffffff;
   outline: none;
   box-sizing: border-box;
+  padding: 12px 20px;
+  border-radius: 4px;
 }
 </style>
