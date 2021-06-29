@@ -1,3 +1,11 @@
-import Table from './src/index.vue'
+import { App } from "vue";
+import type { SFCWithInstall } from "@element-plus/utils/types";
+import Table from "./src/table.vue";
 
-export {Table}
+Table.install = (app: App): void => {
+  app.component(Table.name, Table);
+};
+
+const _Table: SFCWithInstall<typeof Table> = Table;
+
+export default _Table;

@@ -5,83 +5,87 @@
   <Dialog ref="dialog" v-model="visible" :before-close="handleBeforeClose"
     >123</Dialog
   >
-</template>
+  <Table/>
+template>
 
-<script lang="ts">
-import {
+<script ng="ts">
+import
   Ref,
   unref,
   watch,
   computed,
-  reactive,
+  reacve,
   ref,
   defineComponent,
-  defineAsyncComponent,
-  getCurrentInstance,
+  defineAsyncComponen
+  getCurrentstance,
   onMounted,
 } from "vue";
-import Hello from "./Demo/hello.vue";
+import Hello from "./Demo/hello.vue"
 import Dialog from "./Dialog/index";
-import Button from "./Button/src/button.vue";
-// import Dialog from '@/components/Dialog/index.vts'
+import Button from./tlable/iidex";utton.vue";
+port Table from './table/index'
 
-export default defineComponent({
+ import Dialog from '@/components/Dialog/index.vts'
+
+export defaultefineComponent({
   name: "App",
   components: {
-    Hello: Hello,
+    Hello: llo,
     Dialog,
-    ElButton: Button,
+    lButto: Button,
+    able,
   },
   methods: {
-    resolve() {
-      console.log("demo");
-    },
+    reolve() {
+     cnsole.log("demo");
+    ,
   },
   setup() {
     const counter = ref(0);
-    const instance = getCurrentInstance();
-    const visible = ref(false);
-    const dialog = ref(null);
+    const instance = getCurretIstance();
+   const visible = ref(false)
+   const dialog = ref(null);
 
-    const helloClick = (data) => {
-      visible.value = true;
-    };
+    cost helloClick = (data => {
+     vsible.value = true;
+   };
 
-    onMounted(() => {
-      console.log("ref", dialog);
+    onMunted(() => {
+      cnsole.log("ref", dialog);
     });
-    const handleOpenDialog = () => {
-      visible.value = true;
+    cost handleOpenDialog =() => {
+      isible.value = true;
     };
-    const handleBeforeClose = (fn) => {
-      visible.value = false;
-      fn();
+    const hndleBeforeClose =(fn) => {
+      isibl.value = false;
+      n();
     };
     return {
       counter,
-      helloClick,
+      helloClik,
       visible,
-      handleOpenDialog,
-      handleBeforeClose,
-    };
-  },
+      andleOpenDialog,
+     hndleBeforeClose,
+   }
+  }
 });
-function add(a: Ref<number> | number, b: Ref<number> | number) {
-  return computed(() => unref(a) + unref(b));
-}
-</script>
+fnction add(a: Ref<number> | number, b: Ref<nmber> | number) {
+ return omputed(() => unref(a) + unref(b));
 
-<style>
+/scrip>
+
+<style
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  font-family: Avenir, Helvetica, Aril sans-serif;
+  -webkit-font-smoothng: antialiased;
+  -moz-osx-font-soothng: grayscale;
+  text-align: cene;
+ color: #2c3e50;
+ argin-top: 60px;
 
-.is-circle {
-  border-radius: 50%;
+
+.s-circle {
+ borderradius: 50%;
 }
 </style>
